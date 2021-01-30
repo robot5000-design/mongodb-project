@@ -21,8 +21,11 @@ def mongo_connect(url):
 conn = mongo_connect(MONGO_URI)
 
 coll = conn[DATABASE][COLLECTION]
+#print(coll)
 
 documents = coll.find()
+#print(documents)
 
 for doc in documents:
-    print(doc)
+    for key, value in doc.items():
+        print(key, value)
