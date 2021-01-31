@@ -30,6 +30,35 @@ def show_menu():
     return option
 
 
+def find_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for key, value in doc.items():
+            if key != "_id":
+                print(key.capitalize() + ": " + value.capitalize())
+
+
+def edit_record():
+    doc = get_record()
+    if doc:
+        update_doc = {}
+        print("")
+        for key, value in doc.items():
+            if key != "_id":
+                update_doc[key] = input(key.capitalize() + " [" + value + "] > ")
+
+                if update_doc[key] == "":
+                    update_doc[key] = value
+
+        try:
+            coll.update_one(doc, {"$set": update_doc})
+            print("")
+            print("Document updated")
+        except:
+            print("Error accessing the database")
+
+
 def get_record():
     print("")
     first = input("Enter first name > ").lower()
