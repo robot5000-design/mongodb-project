@@ -113,7 +113,7 @@ def main_loop():
         elif option == "2":
             find_record()
         elif option == "3":
-            print("You have selected option 3")
+            edit_record()
         elif option == "4":
             print("You have selected option 4")
         elif option == "5":
