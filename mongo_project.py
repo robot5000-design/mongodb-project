@@ -105,6 +105,28 @@ def add_record():
         print("Error accessing the database")
 
 
+def delete_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for key, value in doc.items():
+            if key != "_id":
+                print(key.capitalize() + ": " + value.capitalize())
+
+        print("")
+        confirmation = input("Is this the document you want to delete?\nY or N > ").lower()
+        print("")
+
+        if confirmation == "y":
+            try:
+                coll.remove(doc)
+                print("Document deleted!")
+            except:
+                print("Error accessing the database")
+        else:
+            print("Document not deleted")
+
+
 def main_loop():
     while True:
         option = show_menu()
@@ -115,7 +137,7 @@ def main_loop():
         elif option == "3":
             edit_record()
         elif option == "4":
-            print("You have selected option 4")
+            delete_record()
         elif option == "5":
             conn.close()
             break
