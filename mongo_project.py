@@ -30,13 +30,59 @@ def show_menu():
     return option
 
 
+def get_record():
+    print("")
+    first = input("Enter first name > ").lower()
+    last = input("Enter last name > ").lower()
+
+    try:
+        doc = coll.find_one({"first": first, "last": last})
+    except:
+        print("Error accessing the database")
+
+    if not doc:
+        print("")
+        print("Error! No results found.")
+
+    return doc
+
+
+def add_record():
+    print("")
+    first = input("Enter first name > ").lower()
+    last = input("Enter last name > ").lower()
+    dob = input("Enter date of birth > ")
+    gender = input("Enter gender > ").lower()
+    hair_color = input("Enter hair color > ").lower()
+    occupation = input("Enter occupation > ").lower()
+    nationality = input("Enter nationality > ").lower()
+
+    new_doc = {
+        "first": first,
+        "last": last,
+        "dob": dob,
+        "gender": gender,
+        "hair_color": hair_color,
+        "occupation": occupation,
+        "nationality": nationality
+    }
+
+    try:
+        coll.insert(new_doc)
+        print(new_doc)
+        print("")
+        print("Document inserted")
+    except:
+        print("Error accessing the database")
+
+
 def main_loop():
     while True:
         option = show_menu()
         if option == "1":
-            print("You have selected option 1")
+            add_record()
         elif option == "2":
-            print("You have selected option 2")
+            find_record()
         elif option == "3":
             print("You have selected option 3")
         elif option == "4":
